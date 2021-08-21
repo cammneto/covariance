@@ -27,14 +27,14 @@
    end do
 
    rewind 10
-   write (40,FMT='(A6,F5.2)'), 'xbar =', xbar
-   write (40,FMT='(A6,F5.2)'), 'ybar =', ybar
-   write (40,*), 'x-xbar y-ybar'
+   write (40,FMT='(A6,F5.2)') 'xbar =', xbar
+   write (40,FMT='(A6,F5.2)') 'ybar =', ybar
+   write (40,*) 'x-xbar y-ybar'
    do i=1,N
     read(10,FMT='(F4.1,2x,F4.1)') x, y
      covxx = covxx + ((x-xbar)**2)/(N-1)
      covyy = covyy + ((y-ybar)**2)/(N-1)
-    write (40,FMT='(F5.2,2x,F5.2)'), x-xbar, y-ybar
+    write (40,FMT='(F5.2,2x,F5.2)') x-xbar, y-ybar
    end do
 
    rewind 10
@@ -43,9 +43,9 @@
      covxy = covxy + ((x-xbar)*(y-ybar))/(N-1)
    end do
 
-   write (30,*),'covariance matrix'
-   write (30,*), covxx, covxy
-   write (30,*), covxy, covyy
+   write (30,*)'covariance matrix'
+   write (30,*) covxx, covxy
+   write (30,*) covxy, covyy
 
     D = sqrt((-covxx-covyy)**2 -4*(covxx*covyy-(covxy**2)))
 
@@ -53,9 +53,9 @@
 
     L2 = (covxx + covyy - D)/2
 
-   write (50,*),'covariance matrix eigenvalues'
-   write (50,*), L1
-   write (50,*), L2
+   write (50,*)'covariance matrix eigenvalues'
+   write (50,*) L1
+   write (50,*) L2
 
 !eigenvectors for L1 eigenvalue
     x1 = covxy/sqrt((covxy**2)+(L1-covxx)**2)
@@ -67,26 +67,26 @@
 
     x4 = (L2-covxx)*x3/covxy
 
-   write (60,*),'eigenvector associater with L1 =' , L1
-   write (60,*), x1, x2
-   write (60,*),'eigenvector associater with L2 =' , L2
-   write (60,*), x3, x4
+   write (60,*) 'eigenvector associater with L1 =' , L1
+   write (60,*)  x1, x2
+   write (60,*) 'eigenvector associater with L2 =' , L2
+   write (60,*)  x3, x4
 
 !cheking eigenvectors calculations for L1 eigenvalue
     C1 = covxx*x1 + covxy*x2
     C2 = covxy*x1 + covyy*x2
     C3 = x1*L1
     C4 = x2*L1
-   write (70,*), 'If the results are equal thus, the eigenvectors are correct.'
-   write (70,*), C1, '=', C3
-   write (70,*), C2, '=', C4
+   write (70,*) 'If the results are equal thus, the eigenvectors are correct.'
+   write (70,*) C1, '=', C3
+   write (70,*) C2, '=', C4
 
 !cheking eigenvectors calculations for L2 eigenvalue
     C5 = covxx*x3 + covxy*x4
     C6 = covxy*x3 + covyy*x4
     C7 = x3*L2
     C8 = x4*L2
-   write (70,*), C5, '=',  C7
-   write (70,*), C6, '=',  C8
+   write (70,*) C5, '=',  C7
+   write (70,*) C6, '=',  C8
 
 end program
